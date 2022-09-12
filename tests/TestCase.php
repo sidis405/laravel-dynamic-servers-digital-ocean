@@ -2,9 +2,9 @@
 
 namespace Sidis405\LaravelDynamicServersDigitalOcean\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Sidis405\LaravelDynamicServersDigitalOcean\LaravelDynamicServersDigitalOceanServiceProvider;
+use Sidis405\LaravelDynamicServersDigitalOcean\Tests\TestSupport\ServerProviders\DummyServerProvider;
 
 class TestCase extends Orchestra
 {
@@ -12,9 +12,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        $this->setUpDigitalOceanTestProvider();
     }
 
     protected function getPackageProviders($app)
@@ -27,10 +25,31 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
+    }
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
-        $migration->up();
-        */
+    protected function setUpDigitalOceanTestProvider(): self
+    {
+        $this->setDefaultServerProvider(DummyServerProvider::class);
+
+        $providerConfig = config('dynamic-servers.providers');
+        $providerConfig['other_provider'] = [
+            'class' => DummyServerProvider::class,
+        ];
+
+        config()->set('dynamic-servers.providers', $providerConfig);
+
+        return $this;
+    }
+
+    protected function setDefaultServerProvider(string $serverProvider): self
+    {
+        config()->set('dynamic-servers.providers.digital_ocean.class', $serverProvider);
+
+        return $this;
+    }
+
+    public function digitalOceanHasBeenConfigured(): bool
+    {
+        return config('dynamic-servers.providers.digital_ocean.options.token') !== null;
     }
 }
