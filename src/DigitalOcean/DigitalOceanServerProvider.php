@@ -5,8 +5,8 @@ namespace Sidis405\LaravelDynamicServersDigitalOcean\DigitalOcean;
 use Exception;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
-use Spatie\DynamicServers\ServerProviders\DigitalOcean\Exceptions\CannotGetDigitalOceanServerDetails;
-use Spatie\DynamicServers\ServerProviders\DigitalOcean\Exceptions\CannotRebootServer;
+use Sidis405\LaravelDynamicServersDigitalOcean\DigitalOcean\Exceptions\CannotGetDigitalOceanServerDetails;
+use Sidis405\LaravelDynamicServersDigitalOcean\DigitalOcean\Exceptions\CannotRebootServer;
 use Spatie\DynamicServers\ServerProviders\ServerProvider;
 
 class DigitalOceanServerProvider extends ServerProvider
@@ -20,6 +20,13 @@ class DigitalOceanServerProvider extends ServerProvider
         }
 
         $digitalOceanServer = DigitalOceanServer::fromApiPayload($response->json('droplet'));
+
+        $this->server->addMeta('server_properties', $digitalOceanServer->toArray());
+    }
+
+    public function updateServerMeta(): void
+    {
+        $digitalOceanServer = $this->getServer();
 
         $this->server->addMeta('server_properties', $digitalOceanServer->toArray());
     }
