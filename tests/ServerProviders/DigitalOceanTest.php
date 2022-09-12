@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Str;
-use Spatie\DynamicServers\Models\Server;
 use Sidis405\LaravelDynamicServersDigitalOcean\DigitalOcean\DigitalOceanServerProvider;
+use Spatie\DynamicServers\Models\Server;
 
 beforeEach(function () {
     if (! $this->digitalOceanHasBeenConfigured()) {
