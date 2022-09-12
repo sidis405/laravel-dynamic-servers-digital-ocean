@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Sidis405\LaravelDynamicServersDigitalOcean;
 
 class Skeleton
 {

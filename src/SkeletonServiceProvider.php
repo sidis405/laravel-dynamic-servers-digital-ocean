@@ -1,25 +1,27 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Sidis405\LaravelDynamicServersDigitalOcean;
 
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
 
 class SkeletonServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
         $package
-            ->name('skeleton')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->name('laravel-dynamic-servers-digital-ocean')
+            ->publishesServiceProvider('DigitalOceanEventServiceProvider')
+            ->hasInstallCommand(function (InstallCommand $command) {
+                $command
+                    ->copyAndRegisterServiceProviderInApp()
+                    ->askToStarRepoOnGitHub('sidis405/laravel-dynamic-servers-digital-ocean')
+                    ->endWith(function (InstallCommand $installCommand) {
+                        $installCommand->line('');
+                        $installCommand->info("We've added app\Providers\DigitalOceanEventServiceProvider to your project.");
+                        $installCommand->info('Feel free to customize it to your needs.');
+                    });
+            });
     }
 }
