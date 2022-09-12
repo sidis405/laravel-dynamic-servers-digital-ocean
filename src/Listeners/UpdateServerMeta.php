@@ -8,6 +8,12 @@ class UpdateServerMeta
 {
     public function handle(ServerRunningEvent $event)
     {
-        $event->server->addMeta('server_properties', $event->server->serverProvider()->getServer()->toArray());
+        $event->server->addMeta(
+            'server_properties',
+            $event->server
+                ->serverProvider()
+                ->getServer()
+                ->toArray()
+        );
     }
 }

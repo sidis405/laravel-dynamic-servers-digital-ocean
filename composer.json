@@ -63,7 +63,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Sidis405\\LaravelDynamicServersDigitalOcean"
+                "Sidis405\\LaravelDynamicServersDigitalOcean\\LaravelDynamicServersDigitalOceanServiceProvider"
             ]
         }
     },

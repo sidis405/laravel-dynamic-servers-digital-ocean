@@ -6,7 +6,7 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class LaravelDynamicServersDigitalOceanServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,7 +16,6 @@ class SkeletonServiceProvider extends PackageServiceProvider
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->copyAndRegisterServiceProviderInApp()
-                    ->askToStarRepoOnGitHub('sidis405/laravel-dynamic-servers-digital-ocean')
                     ->endWith(function (InstallCommand $installCommand) {
                         $installCommand->line('');
                         $installCommand->info("We've added app\Providers\DigitalOceanEventServiceProvider to your project.");
