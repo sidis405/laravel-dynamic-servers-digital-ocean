@@ -7,8 +7,6 @@ parameters:
         - src
     ignoreErrors:
         - '#Access to an undefined property Spatie\\DynamicServers\\Models\\Server::\$configuration.#'
-        - '#Call to static method make\(\) on an unknown class Spatie\\DynamicServers\\ServerProviders\\DigitalOcean\\Exceptions\\CannotGetDigitalOceanServerDetails.#'
-        - '#Call to static method make\(\) on an unknown class Spatie\\DynamicServers\\ServerProviders\\DigitalOcean\\Exceptions\\CannotRebootServer.#'
         - '#Call to an undefined method Spatie\\DynamicServers\\ServerProviders\\ServerProvider::getServer\(\).#'
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
