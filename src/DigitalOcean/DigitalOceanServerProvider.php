@@ -43,13 +43,11 @@ class DigitalOceanServerProvider extends ServerProvider
         $serverId = $this->server->meta('server_properties.id');
 
         $response = $this->request()->post("/droplets/{$serverId}/actions", [
-            'stop_server' => [
-                'type' => 'power_off',
-            ],
+            'type' => 'shutdown',
         ]);
 
         if (! $response->successful()) {
-            throw new Exception($response->json('error.error_message'));
+            throw new Exception($response->json('message'));
         }
     }
 
@@ -67,7 +65,7 @@ class DigitalOceanServerProvider extends ServerProvider
         $response = $this->request()->delete("/droplets/{$serverId}");
 
         if (! $response->successful()) {
-            throw new Exception($response->json('error.error_message', 'Could not delete server'));
+            throw new Exception($response->json('message', 'Could not delete server'));
         }
     }
 
