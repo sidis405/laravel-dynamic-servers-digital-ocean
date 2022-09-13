@@ -7,6 +7,8 @@
 
 This package provides a <a href="https://digitalocean.com"> Server Provider for Spatie's <a href="https://github.com/spatie/laravel-dynamic-servers">Laravel Dynamic Servers</a> Package.
 
+## The package is under active development and not suitable for production. Please feel free to contribute.
+
 ## Installation
 
 You can install the package via composer:
